@@ -37,7 +37,7 @@ jobs:
       with:
         url: 'https://beta.gopaddle.io/gateway/v1/application/appsa9fde7b7cb106c486bcb691ca134e64fd14c'
         method: 'PUT'
-        bearerToken: '${{ secrets.BEARER_TOKEN }}' 
-        data: {"updateType":"buildUpdate","deploymentTemplateVersion":"draft","serviceGroups":[{"name":"spring-petclinic","id":"sg63e2f795sg62e6sg4cd7sgbaefsg4e572ff17787","version":"draft","services":[{"id":"svcea1ce6dcdccaccc4c64cabbec84f5b0f495ee","serviceVersion":"draft","releaseConfig":{"image":"${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}"}}],"description":"YXBwIGlubGluZSB1cGRhdGUgc3VwcG9ydCBhZGRlZA=="}]}
+        bearerToken: ${{ secrets.BEARER_TOKEN }} 
+        data: '{"updateType":"buildUpdate","deploymentTemplateVersion":"draft","serviceGroups":[{"name":"spring-petclinic","id":"sg63e2f795sg62e6sg4cd7sgbaefsg4e572ff17787","version":"draft","services":[{"id":"svcea1ce6dcdccaccc4c64cabbec84f5b0f495ee","serviceVersion":"draft","releaseConfig":{"image":"${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}"}}],"description":"YXBwIGlubGluZSB1cGRhdGUgc3VwcG9ydCBhZGRlZA=="}]}'
     
           
