@@ -32,7 +32,7 @@ jobs:
     - run: |
             docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
-    - run: desc=`echo -n ${{ github.event.head_commit.message }} | base64`
+    - run: export desc=`echo -n ${{ github.event.head_commit.message }} | base64`
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
