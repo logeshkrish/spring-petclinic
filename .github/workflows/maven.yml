@@ -44,6 +44,7 @@ jobs:
     - name: Trigger Jenkins
       uses: fjogeleit/http-request-action@master
       with:
-        url: 'http://34.70.46.59:30005/generic-webhook-trigger/invoke?token=${{ secrets.JENKINS_TOKEN }}'
+        url: 'http://34.70.46.59:30005/generic-webhook-trigger/invoke'
         method: 'POST'
+        bearerToken: ${{ secrets.JENKINS_TOKEN }} 
           
