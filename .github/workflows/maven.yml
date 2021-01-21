@@ -30,12 +30,11 @@ jobs:
         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-    - env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
     - run: |
             docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
     - run: |
+            echo 'ACTIONS_ALLOW_UNSECURE_COMMANDS=true' >> $GITHUB_ENV
             echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
             echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
             export desc=`echo -n ${{ github.event.head_commit.message }} | base64`
