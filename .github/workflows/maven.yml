@@ -33,15 +33,13 @@ jobs:
     - run: |
             docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
-    - run: |
-            export desc=`echo -n ${{ github.event.head_commit.message }} | base64`
-            echo "::set-env name=DESC::$desc" >> $GITHUB_ENV
+    - run: echo "DESC::$(echo -n ${{ github.event.head_commit.message }} | base64)" >> $GITHUB_ENV
     - name: Deploy Stage
       uses: fjogeleit/http-request-action@master
       with:
         url: 'https://beta.gopaddle.io/gateway/v1/application/appsa713702cc746bc4df4ca285c39904ecb111e'
         method: 'PUT'
         bearerToken: ${{ secrets.BEARER_TOKEN }} 
-        data: '{"updateType":"buildUpdate","deploymentTemplateVersion":"draft","serviceGroups":[{"name":"spring-petclinic","id":"sg63e2f795sg62e6sg4cd7sgbaefsg4e572ff17787","version":"draft","services":[{"id":"svcea1ce6dcdccaccc4c64cabbec84f5b0f495ee","serviceVersion":"draft","releaseConfig":{"image":"${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}"}}],"description":"${{env.DESC}}"}]}'
+        data: '{"updateType":"buildUpdate","deploymentTemplateVersion":"draft","serviceGroups":[{"name":"spring-petclinic","id":"sg63e2f795sg62e6sg4cd7sgbaefsg4e572ff17787","version":"draft","services":[{"id":"svcea1ce6dcdccaccc4c64cabbec84f5b0f495ee","serviceVersion":"draft","releaseConfig":{"image":"${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}"}}],"description":"${{ env.DESC }}"}]}'
     
           
