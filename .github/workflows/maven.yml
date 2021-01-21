@@ -12,6 +12,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    
 
     steps:
     - uses: actions/checkout@v2
@@ -29,6 +30,8 @@ jobs:
         login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
+    - env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
     - run: |
             docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/petclinic:${{ github.sha }}
